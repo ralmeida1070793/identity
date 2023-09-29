@@ -1,0 +1,42 @@
+﻿@model RoleViewModel
+@{
+    ViewData["Title"] = Model != null?"Home Page":"Role";
+}
+
+@if (Model.Name == null && @ViewBag.Message != null)
+{
+    <div style="border:1px solid red">
+        @ViewBag.Message
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Register Role</h1>
+    </div>
+    @using (Html.BeginForm("Index", "Role", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken() 
+        @Html.ValidationSummary(true)
+        if (@ViewBag.Message != null)
+        {
+            <div style="border:1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(a => a.Name)</td>
+                <td>@Html.TextBoxFor(a => a.Name)</td>
+                <td>@Html.ValidationMessageFor(a => a.Name)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Register" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    }
+}

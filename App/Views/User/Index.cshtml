@@ -1,0 +1,25 @@
+﻿@model RoleViewModel
+@{
+    ViewData["Title"] = Model != null?"Home Page":"Login";
+}
+
+@if (!String.IsNullOrEmpty(Model.Name) && @ViewBag.Message == null)
+{
+    <div class="text-center">
+        <table>
+            <tr>
+                <td>Current Role</td>
+                <td>@Model.Name</td>
+            </tr>
+        </table>
+    </div>
+}
+else
+{
+    if (@ViewBag.Message != null)
+    {
+        <div style="border:1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+}

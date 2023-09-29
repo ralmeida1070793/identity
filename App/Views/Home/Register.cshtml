@@ -1,0 +1,63 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (
+    Model.Username != null &&
+    Model.Email != null &&
+    Model.Password != null &&
+    Model.Role != null &&
+    @ViewBag.Message == null)
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome @Model.Username</h1>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Register</h1>
+    </div>
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken() 
+        @Html.ValidationSummary(true)
+        if (@ViewBag.Message != null)
+        {
+            <div style="border:1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(a => a.Email)</td>
+                <td>@Html.TextBoxFor(a => a.Email)</td>
+                <td>@Html.ValidationMessageFor(a => a.Email)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(a => a.Username)</td>
+                <td>@Html.TextBoxFor(a => a.Username)</td>
+                <td>@Html.ValidationMessageFor(a => a.Username)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(a => a.Password)</td>
+                <td> @Html.PasswordFor(a => a.Password) </td>
+                <td> @Html.ValidationMessageFor(a => a.Password) </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(a => a.Role)</td>
+                <td>@Html.TextBoxFor(a => a.Role)</td>
+                <td>@Html.ValidationMessageFor(a => a.Role)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Register" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    }
+}

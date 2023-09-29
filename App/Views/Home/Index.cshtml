@@ -1,0 +1,49 @@
+﻿@using App.Context
+@model LoginViewModel
+@{
+    ViewData["Title"] = !String.IsNullOrEmpty(UserContext.GetInstance().UserName) != null?"Home Page":"Login";
+}
+
+@if (!String.IsNullOrEmpty(UserContext.GetInstance().UserName))
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome @Model.Username</h1>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Login</h1>
+    </div>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken() 
+        @Html.ValidationSummary(true)
+        if (@ViewBag.Message != null)
+        {
+            <div style="border:1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(a => a.Username)</td>
+                <td>@Html.TextBoxFor(a => a.Username)</td>
+                <td>@Html.ValidationMessageFor(a => a.Username)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(a => a.Password)</td>
+                <td> @Html.PasswordFor(a => a.Password) </td>
+                <td> @Html.ValidationMessageFor(a => a.Password) </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td><a href="/Home/Register">Register</a></td>
+                <td></td>
+            </tr>
+        </table>
+    }
+}
